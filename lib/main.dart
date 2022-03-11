@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:manage_expenses/MyHomePage.dart';
+import 'package:manage_expenses/home.dart';
 
 void main() {
   runApp(const MyApp());
