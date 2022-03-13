@@ -22,7 +22,7 @@ class _TranscationListState extends State<TranscationList> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300,
+      height: 500,
       child: _transactions.isEmpty
           ? Column(
               children: [
@@ -32,6 +32,7 @@ class _TranscationListState extends State<TranscationList> {
                 ),
                 Container(
                   height: 200,
+                  margin: const EdgeInsets.all(20),
                   child: Image.asset(
                     "assets/images/waiting.png",
                     fit: BoxFit.cover,
