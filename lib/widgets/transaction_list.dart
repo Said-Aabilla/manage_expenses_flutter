@@ -38,49 +38,37 @@ class _TranscationListState extends State<TranscationList> {
                 )
               ],
             )
-          : ListView(
-              children: _transactions.map((tx) {
-              return Card(
-                child: Row(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.symmetric(
-                        vertical: 10,
-                        horizontal: 15,
-                      ),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Theme.of(context).primaryColor,
-                          width: 2,
-                        ),
-                      ),
-                      padding: const EdgeInsets.all(10),
-                      child: Text(
-                        '\$${tx.amount}',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: Theme.of(context).colorScheme.primary,
+          : ListView.builder(
+              itemBuilder: (ctx, index) {
+                return Card(
+                  elevation: 5,
+                  margin: const EdgeInsets.symmetric(
+                    vertical: 8,
+                    horizontal: 5,
+                  ),
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      radius: 30,
+                      child: Padding(
+                        padding: EdgeInsets.all(6),
+                        child: FittedBox(
+                          child: Text('\$${_transactions[index].amount}'),
                         ),
                       ),
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(tx.title,
-                            style: Theme.of(context).textTheme.titleMedium),
-                        Text(
-                          DateFormat.yMMMEd().format(tx.date),
-                          style: const TextStyle(
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ],
+                    title: Text(
+                      _transactions[index].title,
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
-                  ],
-                ),
-              );
-            }).toList()),
+                    subtitle: Text(
+                      DateFormat.yMMMd().format(_transactions[index].date),
+                    ),
+                  ),
+                );
+              },
+              itemCount: _transactions.length,
+            ),
     );
   }
 }
