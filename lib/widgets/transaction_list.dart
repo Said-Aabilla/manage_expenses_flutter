@@ -6,8 +6,9 @@ import 'package:manage_expenses/models/transaction.dart';
 
 class TranscationList extends StatefulWidget {
   final List<Transaction> _transactions;
+  final Function _deleteTransaction;
 
-  TranscationList(this._transactions);
+  TranscationList(this._transactions, this._deleteTransaction);
 
   @override
   State<TranscationList> createState() => _TranscationListState(_transactions);
@@ -63,6 +64,12 @@ class _TranscationListState extends State<TranscationList> {
                     ),
                     subtitle: Text(
                       DateFormat.yMMMd().format(_transactions[index].date),
+                    ),
+                    trailing: IconButton(
+                      onPressed: () =>
+                          widget._deleteTransaction(_transactions[index].id),
+                      icon: const Icon(Icons.delete),
+                      color: Colors.red,
                     ),
                   ),
                 );

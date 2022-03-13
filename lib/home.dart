@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:manage_expenses/models/transaction.dart';
 import 'package:manage_expenses/widgets/chart.dart';
@@ -35,12 +37,22 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  void _addNewTransaction(String title, double amount) {
+  void _addNewTransaction(String title, double amount, DateTime selectedDate) {
+    var rng = Random();
     final newTx = Transaction(
-        id: "t3", title: title, amount: amount, date: DateTime.now());
+        id: rng.nextInt(100).toString(),
+        title: title,
+        amount: amount,
+        date: selectedDate);
 
     setState(() {
       _transactions.add(newTx);
+    });
+  }
+
+  void _deleteTransaction(String id) {
+    setState(() {
+      _transactions.removeWhere((element) => element.id == id);
     });
   }
 
@@ -66,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Chart(_recentTransactions),
-            TranscationList(_transactions),
+            TranscationList(_transactions, _deleteTransaction),
           ],
         ),
       ),
